@@ -1,0 +1,17 @@
+{% extends 'forum/base_forum.html' %}
+
+{% block title %}
+  {{ tag.title }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="container" style="margin-left: -15px">
+    <h2 class="mb-4">Questions tagged [{{ tag.title }}]</h2>
+  </div>
+
+  {% for question in tag.questions.all %}
+    {% include 'forum/includes/question_card_template.html' %}
+  {% endfor %}
+
+{% endblock %}

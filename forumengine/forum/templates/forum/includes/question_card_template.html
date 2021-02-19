@@ -1,0 +1,70 @@
+{% if not questions  %}
+
+  <div class="row">
+    <div class="col-9 ml-3">
+      <div class="d-flex justify-content-between mb-4">
+
+        {% if not questions %}
+
+          <div class="p-2" style="margin-left: -20px;">
+            <h5 class="card-title">
+
+            {{ question.title }}
+
+            </h5>
+          </div>
+
+        {% endif %}
+
+        {% if not tag %}
+
+          <div class="p-2">
+            {% include 'forum/includes/ask_question_btn.html' %}
+          </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+<div class="card mb-4 w-75">
+  <div class="card-body">
+
+    {% if questions %}
+
+      <a class="" href="{{ question.get_absolute_url }}">
+        <h5 class="card-title">
+        {{ question.title }}
+        </h5>
+      </a>
+
+    {% endif %}
+
+    {% if questions %}
+
+      <p class="card-text">
+        {{ question.body|truncatewords:40 }}
+      </p>
+
+    {% else %}
+
+      <p class="card-text">
+        {{ question.body }}
+      </p>
+
+    {% endif %}
+
+    {% for tag in question.tags.all %}
+
+      <a class="btn btn-light" style="background-color: #e3f2fd;" href="{{ tag.get_absolute_url }}" role="button">{{ tag.title }}</a>
+
+    {% endfor %}
+
+    <p class="card-text text-right text-muted">
+      asked: {{ question.date_pub }}
+    </p>
+  </div>
+</div>

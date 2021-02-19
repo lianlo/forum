@@ -1,0 +1,21 @@
+{% extends 'forum/base_forum.html' %}
+
+{% block title %}
+  {{ question.title }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+  {% include 'forum/includes/question_card_template.html' %}
+
+  <div class="">
+    <h4 class="mb-3">{{ answers_number }} Answers</h4>
+  </div>
+
+  {% for answer in answers %}
+    {% include 'forum/includes/answer_card_template.html' %}
+  {% endfor %}
+
+  {% include 'forum/includes/answer_create_form.html' %}
+
+{% endblock %}

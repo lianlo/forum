@@ -1,0 +1,35 @@
+<div class="mr-2 mt-5">
+  <h4 class="">Your Answer</h4>
+</div>
+<div class="pl-2 row">
+  <div class="mb-4">
+    <div class="p-2" style="padding-left: 5px;">
+      <form class="mb-4 mr-2" action="{{ question.get_absolute_url }}" method="post" style="width: 52rem;">
+
+        {% csrf_token %}
+
+        {% for field in form %}
+
+          <div class="form-group">
+
+            {% if field.errors %}
+
+              <div class="alert alert-danger">
+
+                {{ field.errors }}
+
+              </div>
+
+            {% endif %}
+
+            {{ field }}
+
+          </div>
+
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary mb-4">Post Your Answer</button>
+      </form>
+    </div>
+  </div>
+</div>

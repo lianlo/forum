@@ -1,0 +1,80 @@
+{% extends 'forum/base_forum.html' %}
+
+{% block title %}
+  Forum Engine
+{% endblock%}
+
+{% block content %}
+
+  <div class="row">
+    <div class="mr-2 col-9 ml-3">
+      <div class="d-flex mb-4">
+        <div class="mr-auto p-2">
+          <div style="margin-left: -20px;">
+            <h2>All Questions</h2>
+          </div>
+        </div>
+        <div class="p-2">
+          <a class="btn btn-primary" href="{% url 'tags_list_url' %}" role="button">All Tags</a>
+        </div>
+        <div class="p-2">
+          <a class="btn btn-primary" href="{% url 'tag_create_url' %}" role="button">Create Tag</a>
+        </div>
+        <div class="p-2">
+          {% include 'forum/includes/ask_question_btn.html' %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+
+    {% if not question_search_response %}
+
+      <h3>
+      Nothing found for this query!
+      </h3>
+
+    {% endif %}
+
+  </div>
+
+  {% for question in questions.object_list %}
+    {% include 'forum/includes/question_card_template.html' %}
+  {% endfor %}
+
+  <!-- Pagination -->
+
+  {% if is_paginated %}
+    <nav aria-label="..." >
+      <ul class="pagination">
+        <li class="page-item {% if not prev_url %} disabled {% endif %}">
+        <a class="page-link" href="{{ prev_url }}" tabindex="-1" aria-disabled="true">Previous</a>
+      </li>
+
+      {% for n in questions.paginator.page_range %}
+
+        {% if questions.number == n %}
+
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ n }}">{{ n }} <span class="sr-only">(current)</span></a>
+          </li>
+
+          {% elif n > questions.number|add:-3 and n < questions.number|add:3 %}
+
+          <li class="page-item">
+            <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+          </li>
+
+        {% endif %}
+
+      {% endfor %}
+
+      <li class="page-item {% if not next_url %} disabled {% endif %}">
+      <a class="page-link" href="{{ next_url }}" tabindex="-1" aria-disabled="true">Next</a>
+    </li>
+  </ul>
+</nav>
+
+{% endif %}
+
+{% endblock %}

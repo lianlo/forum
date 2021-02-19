@@ -1,0 +1,17 @@
+{% extends 'forum/base_forum.html' %}
+
+{% block title %}
+	Tags list - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+		<h2 class="mb-4">All Tags</h2>
+
+		{% for tag in tags %}
+			<h4><a class="btn btn-light" style="background-color: #e3f2fd;" href="{{ tag.get_absolute_url }}" role="button">{{ tag.title }}</a></h4>
+		{% endfor %}
+	</div>
+
+{% endblock %}
